@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class SpotsController {
     @GetMapping("/spots")
     String spots() {
-        return "All Spots.";
+        return "All Spots!";
     }
 }

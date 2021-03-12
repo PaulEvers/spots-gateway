@@ -8,8 +8,8 @@ services:
       - "5672:5672"
       - "15672:15672"
 
-  spot-service:
-    image: 'paulevers/spots-gateway:latest'
+  spots-gateway:
+    image: 'spots-gateway:latest'
     hostname: spots-gateway
     build:
       context: .
