@@ -1,0 +1,18 @@
+version: '3.3'
+services:
+  message-broker:
+    image: rabbitmq:3.8-management
+    hostname: message-broker
+    restart: always
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+
+  spot-service:
+    image: 'paulevers/spots-gateway:latest'
+    hostname: spots-gateway
+    build:
+      context: .
+    container_name: spots-gateway
+    ports:
+      - 8081:8080
