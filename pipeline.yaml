@@ -1,0 +1,30 @@
+trigger:
+  - main
+
+name: spots-gateway - $(Date:yyyyMMdd)$(Rev:.rr)
+
+parameters:
+  - name: serviceDirectory
+    displayName: Spots gateway
+    type: string
+
+stages:
+  - stage: Build
+    jobs:
+      - job:
+        displayName: Build ${{ parameters.workingDirectory }}
+        steps:
+          - task: Gradle@2
+            inputs:
+              gradleWrapperFile: 'gradlew'
+              tasks: 'build'
+              publishJUnitResults: true
+              testResultsFiles: '**/TEST-*.xml'
+              javaHomeOption: 'JDKVersion'
+              sonarQubeRunAnalysis: false
+
+#  - stage: Create_Images
+#    jobs:
+#      - template: template/BuildPushImage_MavenJib.yaml
+#        parameters:
+#          workingDirectory:  Services/${{ parameters.serviceDirectory }}
