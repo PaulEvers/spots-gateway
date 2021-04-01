@@ -1,0 +1,21 @@
+trigger:
+  - main
+
+name: spots-gateway - $(Date:yyyyMMdd)$(Rev:.rr)
+
+stages:
+  - stage: Build
+    jobs:
+      - job:
+        displayName: Build spots-gateway
+        steps:
+          - task: Gradle@2
+            inputs:
+              gradleWrapperFile: 'gradlew'
+              tasks: 'build'
+              publishJUnitResults: true
+              testResultsFiles: '**/TEST-*.xml'
+              javaHomeOption: 'JDKVersion'
+              jdkVersionOption: '1.11'
+              jdkArchitectureOption: 'x64'
+              sonarQubeRunAnalysis: false
