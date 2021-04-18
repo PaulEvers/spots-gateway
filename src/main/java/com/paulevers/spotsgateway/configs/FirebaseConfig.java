@@ -6,18 +6,18 @@ import com.google.firebase.FirebaseOptions;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 @Configuration
 public class FirebaseConfig{
     @Bean
     FirebaseApp createFireBaseApp() throws IOException {
-        FileInputStream serviceAccount =
-                new FileInputStream("src/main/resources/config/firebaseServiceAccount.json");
+        String path = "/config/firebaseServiceAccount.json";
+        InputStream in = this.getClass().getResourceAsStream(path);
 
-        FirebaseOptions options = new FirebaseOptions.Builder()
-                .setCredentials(GoogleCredentials.fromStream(serviceAccount))
+        FirebaseOptions options = FirebaseOptions.builder()
+                .setCredentials(GoogleCredentials.fromStream(in))
                 .build();
 
         return FirebaseApp.initializeApp(options);
