@@ -44,7 +44,7 @@ stages:
               targetType: 'inline'
               script: |
                 $gradle = Get-Content .\build.gradle
-                $image="spots-gateway"
+                $image="spots-registry.azurecr.io/spots-gateway"
                 $tag="0.0.1-SNAPSHOT"
                 Write-Host "##vso[task.setvariable variable=image]$image"
                 Write-Host "##vso[task.setvariable variable=tag]$tag"
@@ -56,5 +56,3 @@ stages:
               containerRegistry: 'spots-registry'
               repository: $(image)
               command: 'push'
-              tags: |
-                $(tag)
