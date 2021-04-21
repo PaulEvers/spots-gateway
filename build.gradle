@@ -5,6 +5,10 @@ plugins {
 	id 'com.google.cloud.tools.jib' version '2.8.0'
 }
 
+jib {
+	jib.to.image = 'spots-registry.azurecr.io/spots-gateway'
+}
+
 group = 'com.paulevers'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '11'

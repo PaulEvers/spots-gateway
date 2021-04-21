@@ -54,8 +54,7 @@ stages:
             displayName: Push Docker image
             inputs:
               containerRegistry: 'spots-registry'
-              repository: $(image):$(tag)
+              repository: $(image)
               command: 'push'
               tags: |
-                latest
                 $(tag)
