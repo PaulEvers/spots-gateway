@@ -58,3 +58,4 @@ stages:
               command: 'push'
               tags: |
                 latest
+                $(tag)
