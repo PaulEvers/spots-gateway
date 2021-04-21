@@ -4,7 +4,7 @@ trigger:
 name: spots-gateway - $(Date:yyyyMMdd)$(Rev:.rr)
 
 stages:
-  - stage: Build
+  - stage: Build_Test
     jobs:
       - job:
         displayName: Build spots-gateway
@@ -19,3 +19,43 @@ stages:
               jdkVersionOption: '1.11'
               jdkArchitectureOption: 'x64'
               sonarQubeRunAnalysis: false
+  - stage: Create_Images
+    jobs:
+        - job:
+          displayName: Create Gradle Image
+
+          variables:
+          - name: image
+            value: imageNotSpecified 
+          - name: tag
+            value: tagNotSpecified 
+
+          steps:
+          - task: Gradle@2
+            displayName: Build Docker image (Jib)
+            inputs:
+              gradleWrapperFile: 'gradlew'
+              tasks: 'clean jibDockerBuild -x test'
+              publishJUnitResults: false
+              jdkVersionOption: '1.11'
+          - task: PowerShell@2
+            displayName: Retrieve Image Data
+            inputs:
+              targetType: 'inline'
+              script: |
+                $gradle = Get-Content .\build.gradle
+                $image="spots-eureka"
+                $tag="0.0.1-SNAPSHOT"
+                Write-Host "##vso[task.setvariable variable=image]$image"
+                Write-Host "##vso[task.setvariable variable=tag]$tag"
+              showWarnings: true
+              # workingDirectory: ${{ parameters.workingDirectory }}
+          - task: Docker@2
+            displayName: Push Docker image
+            inputs:
+              containerRegistry: 'spots'
+              repository: $(image)
+              command: 'push'
+              tags: |
+                latest
+                $(tag)
