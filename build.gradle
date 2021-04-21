@@ -6,7 +6,7 @@ plugins {
 }
 
 jib {
-	jib.to.image = 'spots.azurecr.io/spots-gateway'
+	jib.to.image = 'spotsregistry1.azurecr.io/spots-gateway'
 }
 
 group = 'com.paulevers'
