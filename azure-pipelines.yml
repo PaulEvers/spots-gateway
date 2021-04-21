@@ -53,7 +53,7 @@ stages:
           - task: Docker@2
             displayName: Push Docker image
             inputs:
-              containerRegistry: 'spots'
+              containerRegistry: 'spots-registry'
               repository: $(image)
               command: 'push'
               tags: |
