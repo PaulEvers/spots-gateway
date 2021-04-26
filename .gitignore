@@ -37,3 +37,5 @@ out/
 .vscode/
 
 src/main/resources/config/firebaseServiceAccount.json
+
+src/main/resources/certificates/spots.p12

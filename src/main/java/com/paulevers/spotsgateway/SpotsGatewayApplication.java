@@ -20,6 +20,8 @@ public class SpotsGatewayApplication {
 				.route(r -> r.path("/spots/**")
 						.filters(f -> f.filter(authFilter.apply(new AuthFilter.Config())))
 						.uri("lb://SPOT-SERVICE"))
+				.route(r -> r.path("/user/**")
+						.uri("lb://SPOTS-USERSERVICE"))
 				.build();
 	}
 }
