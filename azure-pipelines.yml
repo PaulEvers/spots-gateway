@@ -73,14 +73,13 @@ stages:
                 latest
   - stage: Deploy
     displayName: Deploy stage
-    dependsOn: Build_Test
 
     jobs:
     - deployment: Deploy
       displayName: Deploy
       pool:
         vmImage: $(vmImageName)
-      environment: 'PaulEversspots.default'
+      environment: 'spots-gateway.default'
       strategy:
         runOnce:
           deploy:
