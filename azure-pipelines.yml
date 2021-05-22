@@ -79,7 +79,7 @@ stages:
       displayName: Deploy
       pool:
         vmImage: $(vmImageName)
-      environment: 'spots-gateway.default'
+      environment: 'PaulEversspots.default'
       strategy:
         runOnce:
           deploy:
