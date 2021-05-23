@@ -25,7 +25,7 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
             decodedToken = FirebaseAuth.getInstance().verifyIdToken(token);
             String uid = decodedToken.getUid();
 
-            if(uid != "" && uid != null) { return true; }
+            if(!uid.equals("") && uid != null) { return true; }
             return false;
         } catch (FirebaseAuthException e) {
             return false;
@@ -46,7 +46,7 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
 
             if (!request.getHeaders().containsKey("Authorization")) {
                 return this.onError(exchange, "No Authorization header", HttpStatus.UNAUTHORIZED);
-            };
+            }
 
             String authorizationHeader = request.getHeaders().get("Authorization").get(0);
 
