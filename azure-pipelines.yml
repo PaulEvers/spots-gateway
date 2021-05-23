@@ -32,6 +32,21 @@ stages:
               jdkVersionOption: '1.11'
               jdkArchitectureOption: 'x64'
               sonarQubeRunAnalysis: false
+  - stage: Quality
+    jobs:
+      - job:
+        displayName: Generating quality report
+        steps:
+          - task: SonarQubePrepare@4
+            inputs:
+              SonarQube: 'SonarQube'
+              scannerMode: 'Other'
+              extraProperties: |
+                sonar.projectName=spots-gateway
+                sonar.projectKey=spots-gateway
+          - task: SonarQubePublish@4
+            inputs:
+              pollingTimeoutSec: '300'
   - stage: Create_Images
     jobs:
         - job:
