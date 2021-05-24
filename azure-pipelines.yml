@@ -29,6 +29,9 @@ stages:
               extraProperties: |
                 sonar.projectName=spots-gateway
                 sonar.projectKey=spots-gateway
+          - powershell: |
+              $params = "$env:SONARQUBE_SCANNER_PARAMS" -replace '"sonar.branch.name":"[\w/,-.]*"\,?'
+              Write-Host "##vso[task.setvariable variable=SONARQUBE_SCANNER_PARAMS]$params"
           - task: Gradle@2
             inputs:
               gradleWrapperFile: 'gradlew'
@@ -41,9 +44,7 @@ stages:
               sonarQubeRunAnalysis: true
               sqGradlePluginVersionChoice: 'build'
               spotBugsAnalysis: false
-          - powershell: |
-              $params = "$env:SONARQUBE_SCANNER_PARAMS" -replace '"sonar.branch.name":"[\w/,-.]*"\,?'
-              Write-Host "##vso[task.setvariable variable=SONARQUBE_SCANNER_PARAMS]$params"
+
   - stage: Quality
     jobs:
       - job:
