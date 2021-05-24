@@ -22,6 +22,13 @@ stages:
       - job:
         displayName: Build spots-gateway
         steps:
+          - task: SonarQubePrepare@4
+            inputs:
+              SonarQube: 'SonarQube'
+              scannerMode: 'Other'
+              extraProperties: |
+                sonar.projectName=spots-gateway
+                sonar.projectKey=spots-gateway
           - task: Gradle@2
             inputs:
               gradleWrapperFile: 'gradlew'
@@ -32,18 +39,13 @@ stages:
               jdkVersionOption: '1.11'
               jdkArchitectureOption: 'x64'
               sonarQubeRunAnalysis: true
+              sqGradlePluginVersionChoice: 'build'
+              spotBugsAnalysis: false
   - stage: Quality
     jobs:
       - job:
         displayName: Generating quality report
         steps:
-          - task: SonarQubePrepare@4
-            inputs:
-              SonarQube: 'SonarQube'
-              scannerMode: 'Other'
-              extraProperties: |
-                sonar.projectName=spots-gateway
-                sonar.projectKey=spots-gateway
           - task: SonarQubePublish@4
             inputs:
               pollingTimeoutSec: '300'
