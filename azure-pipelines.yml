@@ -44,9 +44,11 @@ stages:
               extraProperties: |
                 sonar.projectName=spots-gateway
                 sonar.projectKey=spots-gateway
+          - task: SonarQubeAnalyze@4
           - task: SonarQubePublish@4
             inputs:
               pollingTimeoutSec: '300'
+
   - stage: Create_Images
     jobs:
         - job:
