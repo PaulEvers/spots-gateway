@@ -44,16 +44,9 @@ stages:
               sonarQubeRunAnalysis: true
               sqGradlePluginVersionChoice: 'build'
               spotBugsAnalysis: false
-
-  - stage: Quality
-    jobs:
-      - job:
-        displayName: Generating quality report
-        steps:
           - task: SonarQubePublish@4
             inputs:
               pollingTimeoutSec: '300'
-
   - stage: Create_Images
     jobs:
         - job:
