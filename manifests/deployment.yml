@@ -35,7 +35,11 @@ spec:
         name: spots-gateway
         ports:
         - containerPort: 80
-        resources: {}
+        resources:
+          requests:
+            cpu: "250m"
+          limits:
+            cpu: "500m"
       restartPolicy: Always
       serviceAccountName: ""
       volumes: null
